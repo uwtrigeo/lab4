@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- the Leaflet CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<!-- the Leaflet JavaScript library -->
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<!-- jQuery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Leaflet.markercluster CSS links -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"/>
+    <!-- Leaflet.markercluster JS link -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+</head>
+<body>
+    <div id="map" style="height: 90vh"></div>
+    <!-- link that loads the fault line data from an external file -->
+	<script type="text/javascript" src="data/bikeRacks.js"></script>
+    <style>
+        body {
+			font-family: sans-serif;
+			max-width: 900px;
+			margin: auto;
+		}
+	</style>
+    <script>
+        // Map Initialisation
+		var mymap = L.map('map').setView([42.37553577530044, -71.11814543632214], 13);
+
+        // OpenStreetMap layer
+		var OpenStreetMap_Mapnik = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		});
+        OpenStreetMap_Mapnik.addTo(mymap)
+
+        var bikeRacks =   L.geoJson(racks, {
+            pointToLayer: function(feature, latlng){
+                var marker = L.marker(latlng);
+                marker.bindPopup("hello!");
+                return marker;
+            }
+    }).addTo(mymap);
+    </script>
+</body>
+</html>
