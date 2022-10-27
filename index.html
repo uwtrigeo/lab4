@@ -65,17 +65,29 @@
             popupAnchor: [-3, -76]
         });
         
-        // Bike rack locations
+        // Bike rack location
         var bikeRacks =   L.geoJson(racks, {
             pointToLayer: function(feature, latlng){
                 var marker = L.marker(latlng, {icon: myIcon});
                 marker.bindPopup("Capacity: " + feature.properties.Capacity + "<br>Status: " + feature.properties.Status);
                 return marker;
             }
-            
         });
+        
+        // loading GeoJSON file - Here my html and usa_adm.geojson file resides in same folder
+		// var bikeRacks =	$.getJSON("data/BikeRack_ESPG4326.geojson",function(data){		
+		// 	// L.geoJson function is used to parse geojson file and load on to map
+		// 	L.geoJson(data, {
+        //     pointToLayer: function(feature, latlng){
+        //         var marker = L.marker(latlng, {icon: myIcon});
+        //         marker.bindPopup("Capacity: " + feature.properties.Capacity + "<br>Status: " + feature.properties.Status);
+        //         return marker;
+        //     }
+        //     });
+        // });
+            
 
-        // Cluster Bike racks 
+        // Cluster Bike 
         var clusters = L.markerClusterGroup();
             clusters.addLayer(bikeRacks);
             mymap.addLayer(clusters);
