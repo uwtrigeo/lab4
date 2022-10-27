@@ -28,6 +28,8 @@
 
     <!-- link that loads the fault line data from an external file -->
 	<script type="text/javascript" src="data/bikeRacks.js"></script>
+    <!-- link that loads the plate polys external file -->
+			<script type="text/javascript" src="data/cambridge_areas.js"></script>
     <style>
         body {
 			font-family: sans-serif;
@@ -74,7 +76,7 @@
             }
         });
         
-        // loading GeoJSON file - Here my html and usa_adm.geojson file resides in same folder
+        // Why can't we just load the GeoJson why does it need to be change to a JS file?
 		// var bikeRacks =	$.getJSON("data/BikeRack_ESPG4326.geojson",function(data){		
 		// 	// L.geoJson function is used to parse geojson file and load on to map
 		// 	L.geoJson(data, {
@@ -85,12 +87,24 @@
         //     }
         //     });
         // });
-            
-
+        
         // Cluster Bike 
         var clusters = L.markerClusterGroup();
             clusters.addLayer(bikeRacks);
             mymap.addLayer(clusters);
+        
+        var myStyle = {
+            "color": "#180D1C",
+            "weight": 2,
+            "opacity": 1.5
+            };
+        // Cambridge neighborood layers added
+        var districts = L.geoJSON(areas, {
+            style: myStyle,
+            onEachFeature: function (feature, layer) {
+            layer.bindPopup('<p>District name: '+feature.properties.DIST_NAME+'</p>');
+            }
+            }).addTo(mymap)
     </script>
 </body>
 </html>
