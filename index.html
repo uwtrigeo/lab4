@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cambridge Bike Racks</title>
     <!-- the Leaflet CSS -->
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 	<!-- the Leaflet JavaScript library -->
@@ -16,9 +16,16 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"/>
     <!-- Leaflet.markercluster JS link -->
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <!-- Google font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <h1>Cambridge Bike Rack Locations</h1>
     <div id="map" style="height: 90vh"></div>
+    <p>This map highlights all the bike racks found in the city of Cambridge, Massachusetts. Data comes from the <a href="https://www.cambridgema.gov/GIS/gisdatadictionary/Recreation/RECREATION_BikeRacks">City of Cambridge GIS dictionary</a>.</p>
+
     <!-- link that loads the fault line data from an external file -->
 	<script type="text/javascript" src="data/bikeRacks.js"></script>
     <style>
@@ -27,25 +34,51 @@
 			max-width: 900px;
 			margin: auto;
 		}
+        h1{
+				text-align: center;
+				font-family: 'Montserrat', sans-serif;
+			}
+        #map{
+            border: 2px solid;
+            padding: 10px;
+            box-shadow: 6px 4px 8px 4px;
+            border-radius: 12px;
+        }
 	</style>
     <script>
         // Map Initialisation
-		var mymap = L.map('map').setView([42.37553577530044, -71.11814543632214], 13);
+		var mymap = L.map('map').setView([42.37553577530044, -71.11814543632214], 13.5);
 
         // OpenStreetMap layer
 		var OpenStreetMap_Mapnik = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		maxZoom: 19,
-		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-		});
-        OpenStreetMap_Mapnik.addTo(mymap)
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            });
+            OpenStreetMap_Mapnik.addTo(mymap);
 
+        // Bike rack icon
+        var myIcon = L.icon({
+            iconUrl: 'data/BikeRackImage.png',
+            // iconSize: [38, 95],
+            iconSize: [38, 38],
+            iconAnchor: [22, 94],
+            popupAnchor: [-3, -76]
+        });
+        
+        // Bike rack locations
         var bikeRacks =   L.geoJson(racks, {
             pointToLayer: function(feature, latlng){
-                var marker = L.marker(latlng);
-                marker.bindPopup("hello!");
+                var marker = L.marker(latlng, {icon: myIcon});
+                marker.bindPopup("Capacity: " + feature.properties.Capacity + "<br>Status: " + feature.properties.Status);
                 return marker;
             }
-    }).addTo(mymap);
+            
+        });
+
+        // Cluster Bike racks 
+        var clusters = L.markerClusterGroup();
+            clusters.addLayer(bikeRacks);
+            mymap.addLayer(clusters);
     </script>
 </body>
 </html>
