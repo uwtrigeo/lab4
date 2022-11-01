@@ -49,15 +49,19 @@
         }
 	</style>
     <script>
-        // Map Initialisation
-
-
         // OpenStreetMap layer
 		var OpenStreetMap_Mapnik = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             });
-  
+        // OpenTopoMap layer
+		var USGS_USImageryTopo = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}', {
+	        maxZoom: 20,
+	        attribution: 'Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'});
+		// Esri Satellite
+		var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+			attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+			});
 
         // Bike rack icon
         var myIcon = L.icon({
@@ -115,7 +119,9 @@
 		});
 		
 		var baseLayers = {
-			'OpenStreetMap': OpenStreetMap_Mapnik,
+			'Open Street Map': OpenStreetMap_Mapnik,
+            'USGS Imagery Topo': USGS_USImageryTopo,
+            'ESRI Satellite': Esri_WorldImagery,
 		};
 		var overlays = {
 			'Grouped': clusters,
