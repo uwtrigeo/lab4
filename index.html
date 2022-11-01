@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -49,14 +50,14 @@
 	</style>
     <script>
         // Map Initialisation
-		var mymap = L.map('map').setView([42.37553577530044, -71.11814543632214], 13.5);
+
 
         // OpenStreetMap layer
 		var OpenStreetMap_Mapnik = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             });
-            OpenStreetMap_Mapnik.addTo(mymap);
+  
 
         // Bike rack icon
         var myIcon = L.icon({
@@ -91,7 +92,7 @@
         // Cluster Bike 
         var clusters = L.markerClusterGroup();
             clusters.addLayer(bikeRacks);
-            mymap.addLayer(clusters);
+         
         
         var myStyle = {
             "color": "#180D1C",
@@ -104,7 +105,24 @@
             onEachFeature: function (feature, layer) {
             layer.bindPopup('<p>District name: '+feature.properties.DIST_NAME+'</p>');
             }
-            }).addTo(mymap)
+            })
+		
+			// Adding to map
+		var map = L.map('map', {
+			center: [42.37553577530044, -71.11814543632214],
+			zoom: 13.5,
+			layers: [OpenStreetMap_Mapnik, clusters, districts]
+		});
+		
+		var baseLayers = {
+			'OpenStreetMap': OpenStreetMap_Mapnik,
+		};
+		var overlays = {
+			'Grouped': clusters,
+			'Neighborhoods': districts,
+		};
+
+		var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
     </script>
 </body>
 </html>
