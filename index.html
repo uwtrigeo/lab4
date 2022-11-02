@@ -119,24 +119,24 @@
         var bike_Paths = L.geoJSON(bikePaths);
 
 		// Adding to map
-		var map = L.map('map', {
-			center: [42.37553577530044, -71.11814543632214],
-			zoom: 13.5,
-			layers: [OpenStreetMap_Mapnik, clusters, districts]
-		});
+    		var map = L.map('map', {
+    			center: [42.37553577530044, -71.11814543632214],
+    			zoom: 13.5,
+    			layers: [OpenStreetMap_Mapnik, clusters, districts]
+    		});
 
-		var baseLayers = {
-			'Open Street Map': OpenStreetMap_Mapnik,
-            'USGS Imagery Topo': USGS_USImageryTopo,
-            'ESRI Satellite': Esri_WorldImagery,
-		};
-		var overlays = {
-			'Bike Racks': clusters,
-			'Neighborhoods': districts,
-      'Bike Paths': bike_Paths,
-		};
+    		var baseLayers = {
+    			'Open Street Map': OpenStreetMap_Mapnik,
+          'USGS Imagery Topo': USGS_USImageryTopo,
+          'ESRI Satellite': Esri_WorldImagery,
+    		};
+    		var overlays = {
+    			'Bike Racks': clusters,
+    			'Neighborhoods': districts,
+          'Bike Paths': bike_Paths,
+    		};
 
-		var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
+    		var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 
 
     </script>
