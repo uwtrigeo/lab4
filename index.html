@@ -53,19 +53,19 @@
         }
 	</style>
     <script>
-        // OpenStreetMap layer
-		var OpenStreetMap_Mapnik = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            });
+          // OpenStreetMap layer
+    		var OpenStreetMap_Mapnik = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                });
         // OpenTopoMap layer
-		var USGS_USImageryTopo = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}', {
-	        maxZoom: 16,
-	        attribution: 'Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'});
-		// Esri Satellite
-		var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-			attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-			});
+    		var USGS_USImageryTopo = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}', {
+    	        maxZoom: 16,
+    	        attribution: 'Tiles courtesy of the <a href="https://usgs.gov/">U.S. Geological Survey</a>'});
+    		// Esri Satellite
+    		var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    			attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    			});
 
         // Bike rack icon
         var myIcon = L.icon({
@@ -84,22 +84,9 @@
             }
         });
 
-        // Why can't we just load the GeoJson why does it need to be change to a JS file?
-		// var bikeRacks =	$.getJSON("data/BikeRack_ESPG4326.geojson",function(data){
-		// 	// L.geoJson function is used to parse geojson file and load on to map
-		// 	L.geoJson(data, {
-        //     pointToLayer: function(feature, latlng){
-        //         var marker = L.marker(latlng, {icon: myIcon});
-        //         marker.bindPopup("Capacity: " + feature.properties.Capacity + "<br>Status: " + feature.properties.Status);
-        //         return marker;
-        //     }
-        //     });
-        // });
-
         // Cluster Bike
         var clusters = L.markerClusterGroup();
             clusters.addLayer(bikeRacks);
-
 
         var myStyle = {
             "color": "#180D1C",
@@ -118,7 +105,7 @@
         // Bike Paths
         var bike_Paths = L.geoJSON(bikePaths);
 
-		// Adding to map
+		    // Adding to map
     		var map = L.map('map', {
     			center: [42.37553577530044, -71.11814543632214],
     			zoom: 13.5,
